@@ -1,0 +1,79 @@
+﻿@model IEnumerable<Product.Model.ProductList>
+@{
+    ViewData["Title"] = "SearchProduct";
+}
+
+<h2>SearchProduct</h2>
+
+<p>
+    @Html.ActionLink("Add New Product", "AddProduct")
+</p>
+<form class="form-inline" method="post" action="SearchProduct">
+
+    <input type="text" name="SearchText" class="form-control" placeholder="Product Name" />
+    <span>Search Category :</span>
+    <select name="ProductCategoryId" class="form-control">
+        <option value=0>Select</option>
+        <option value=1>Books</option>
+        <option value=2>Fruits</option>
+        <option value=3>Vegetables</option>
+        <option value=4>Clothes</option>
+    </select>
+    <span>Cost Form :</span>
+    <input type="number" name="MinRange" class="form-control" />
+    <span> To </span>
+    <input type="number" name="MaxRange" class="form-control" />
+    <input type="submit" class="btn btn-primary" />
+</form>
+<br />
+@if (Model != null)
+{
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ProductId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProductName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProductPrice)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProductDate)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProductId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProductName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProductPrice)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProductDate)
+                </td>
+                <td>
+                    @Html.ActionLink("EditProduct", "EditProduct", new { id = item.ProductId }) |
+                    @Html.ActionLink("ProductDetails", "ProductDetails", new { id = item.ProductId }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.ProductId })
+                </td>
+            </tr>
+        }
+
+    </table>
+
+}
+else
+{
+    <h3>No records where found</h3>
+}
+
+
